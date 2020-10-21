@@ -15,6 +15,15 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/api/user', function () use ($router) {
-    return [ 'name' => ''];
+$router->post('/api/login', 'UserController@login');
+
+$router->group(['prefix' => 'api'], function( $router){
+    $router->post('user', 'UserController@store');
+    $router->get('user/{id}', 'UserController@view');
+    $router->delete('user/{id}', 'UserController@delete');
+    $router->put('user/{id}', 'UserController@update');
+    $router->post('user/{id}', 'UserController@destroy');
+    $router->get('users', 'UserController@list');
 });
+
+
